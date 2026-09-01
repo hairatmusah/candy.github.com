@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Checkout | Ayisha Cosmetics</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo">
+        AYISHA <span>COSMETICS</span>
+    </div>
+
+    <a href="index.html">
+        ← Continue Shopping
+    </a>
+
+</header>
+
+
+<section class="checkout-page">
+
+    <h1>Checkout</h1>
+
+    <p>
+        Complete your information to place your order.
+    </p>
+
+
+    <div class="checkout-container">
+
+
+        <!-- CUSTOMER DETAILS -->
+
+        <div class="customer-details">
+
+            <h2>Customer Information</h2>
+
+            <form id="checkout-form">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="customer-name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+
+                <label>
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="customer-phone"
+                    placeholder="024 000 0000"
+                    required
+                >
+
+
+                <label>
+                    Delivery Location
+                </label>
+
+                <input
+                    type="text"
+                    id="customer-location"
+                    placeholder="Enter your location"
+                    required
+                >
+
+
+                <label>
+                    Additional Message
+                </label>
+
+                <textarea
+                    id="customer-message"
+                    placeholder="Any special instructions?"
+                ></textarea>
+
+
+                <button type="submit">
+                    Place Order
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="order-summary">
+
+            <h2>Your Order</h2>
+
+            <div id="checkout-items"></div>
+
+            <div class="checkout-total">
+
+                <span>Total</span>
+
+                <strong id="checkout-total">
+                    GH₵ 0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="footer-logo">
+        AYISHA COSMETICS
+    </div>
+
+    <p>
+        Beauty • Style • Confidence
+    </p>
+
+</footer>
+
+
+<style>
+
+.checkout-page {
+    padding: 60px 7%;
+    min-height: 80vh;
+}
+
+.checkout-page > h1 {
+    text-align: center;
+    color: #b01860;
+    font-size: 45px;
+}
+
+.checkout-page > p {
+    text-align: center;
+    color: #777;
+    margin-bottom: 40px;
+}
+
+.checkout-container {
+    max-width: 1000px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 30px;
+}
+
+.customer-details,
+.order-summary {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,0.08);
+}
+
+.customer-details h2,
+.order-summary h2 {
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+
+form label {
+    display: block;
+    margin: 15px 0 7px;
+    font-weight: bold;
+}
+
+form input,
+form textarea {
+    width: 100%;
+
+    padding: 14px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+form textarea {
+    height: 100px;
+    resize: none;
+}
+
+form button {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: #b01860;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.checkout-item {
+    display: flex;
+    gap: 12px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.checkout-item img {
+    width: 65px;
+    height: 65px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+}
+
+.checkout-total {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 25px;
+
+    font-size: 20px;
+}
+
+@media(max-width: 700px) {
+
+    .checkout-container {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+let cart =
+    JSON.parse(
+        localStorage.getItem("ayishaCart")
+    ) || [];
+
+
+const checkoutItems =
+    document.getElementById(
+        "checkout-items"
+    );
+
+const checkoutTotal =
+    document.getElementById(
+        "checkout-total"
+    );
+
+
+let total = 0;
+
+
+if (cart.length === 0) {
+
+    checkoutItems.innerHTML =
+        "<p>Your cart is empty.</p>";
+
+} else {
+
+    cart.forEach(item => {
+
+        total +=
+            item.price * item.quantity;
+
+
+        checkoutItems.innerHTML += `
+
+            <div class="checkout-item">
+
+                <img
+                    src="${item.image}"
+                    alt="${item.name}"
+                >
+
+                <div>
+
+                    <strong>
+                        ${item.name}
+                    </strong>
+
+                    <p>
+                        ${item.quantity} ×
+                        GH₵ ${item.price}
+                    </p>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+checkoutTotal.textContent =
+    "GH₵ " + total.toFixed(2);
+
+
+// PLACE ORDER
+
+document
+.getElementById("checkout-form")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById(
+            "customer-name"
+        ).value;
+
+    const phone =
+        document.getElementById(
+            "customer-phone"
+        ).value;
+
+    const location =
+        document.getElementById(
+            "customer-location"
+        ).value;
+
+
+    alert(
+        "Thank you " +
+        name +
+        "! Your order has been received."
+    );
+
+
+    localStorage.removeItem(
+        "ayishaCart"
+    );
+
+
+    window.location.href =
+        "index.html";
+
+});
+
+</script>
+
+</body>
+
+</html>
