@@ -1,39 +1,20 @@
-let cart = JSON.parse(localStorage.getItem("ayishaCart")) || [];
+
+// ==========================================
+// AYISHA COSMETICS - SHOPPING CART
+// ==========================================
 
 
-// ADD PRODUCT TO CART
+// GET SAVED CART
 
-function addToCart(name, price, image) {
-
-    const existingProduct = cart.find(
-        item => item.name === name
-    );
-
-    if (existingProduct) {
-
-        existingProduct.quantity++;
-
-    } else {
-
-        cart.push({
-            name: name,
-            price: price,
-            image: image,
-            quantity: 1
-        });
-
-    }
-
-    saveCart();
-
-    updateCart();
-
-    openCart();
-
-}
+let cart =
+    JSON.parse(
+        localStorage.getItem("ayishaCart")
+    ) || [];
 
 
+// ==========================================
 // SAVE CART
+// ==========================================
 
 function saveCart() {
 
@@ -45,100 +26,247 @@ function saveCart() {
 }
 
 
+// ==========================================
+// ADD PRODUCT
+// ==========================================
+
+function addToCart(name, price, image) {
+
+    const existingProduct =
+        cart.find(
+            item => item.name === name
+        );
+
+
+    if (existingProduct) {
+
+        existingProduct.quantity++;
+
+    } else {
+
+        cart.push({
+
+            name: name,
+
+            price: price,
+
+            image: image,
+
+            quantity: 1
+
+        });
+
+    }
+
+
+    saveCart();
+
+    updateCart();
+
+    openCart();
+
+}
+
+
+// ==========================================
 // UPDATE CART
+// ==========================================
 
 function updateCart() {
 
     const cartItems =
-        document.getElementById("cart-items");
+        document.getElementById(
+            "cart-items"
+        );
 
     const cartCount =
-        document.getElementById("cart-count");
+        document.getElementById(
+            "cart-count"
+        );
 
     const cartTotal =
-        document.getElementById("cart-total");
+        document.getElementById(
+            "cart-total"
+        );
+
+
+    // If the page doesn't have a cart,
+    // stop here.
+
+    if (!cartItems) {
+        return;
+    }
 
 
     cartItems.innerHTML = "";
 
+
     let total = 0;
-    let count = 0;
+
+    let itemCount = 0;
 
 
-    cart.forEach((item, index) => {
+    // EMPTY CART
 
-        total += item.price * item.quantity;
+    if (cart.length === 0) {
 
-        count += item.quantity;
+        cartItems.innerHTML = `
 
+            <div class="empty-cart">
 
-        cartItems.innerHTML += `
-
-            <div class="cart-item">
-
-                <img
-                    src="${item.image}"
-                    alt="${item.name}"
-                >
-
-                <div class="cart-item-info">
-
-                    <h4>${item.name}</h4>
-
-                    <p>
-                        GH₵ ${item.price}
-                    </p>
-
-                    <div class="quantity">
-
-                        <button
-                            onclick="changeQuantity(${index}, -1)"
-                        >
-                            −
-                        </button>
-
-                        ${item.quantity}
-
-                        <button
-                            onclick="changeQuantity(${index}, 1)"
-                        >
-                            +
-                        </button>
-
-                    </div>
-
-                    <span
-                        class="remove"
-                        onclick="removeItem(${index})"
-                    >
-                        Remove
-                    </span>
-
+                <div class="empty-cart-icon">
+                    🛒
                 </div>
+
+                <h3>
+                    Your cart is empty
+                </h3>
+
+                <p>
+                    Add some beautiful products
+                    to your cart.
+                </p>
+
+                <a
+                    href="index.html#products"
+                    class="shop-btn"
+                >
+                    Continue Shopping
+                </a>
 
             </div>
 
         `;
 
-    });
+    }
 
 
-    cartCount.textContent = count;
+    // PRODUCTS
 
-    cartTotal.textContent =
-        "GH₵ " + total.toFixed(2);
+    cart.forEach(
+        (item, index) => {
+
+            total +=
+                item.price *
+                item.quantity;
+
+
+            itemCount +=
+                item.quantity;
+
+
+            cartItems.innerHTML += `
+
+                <div class="cart-item">
+
+                    <img
+                        src="${item.image}"
+                        alt="${item.name}"
+                    >
+
+
+                    <div class="cart-item-info">
+
+                        <h4>
+                            ${item.name}
+                        </h4>
+
+                        <p>
+                            GH₵ ${item.price}
+                        </p>
+
+
+                        <div
+                            class="quantity"
+                        >
+
+                            <button
+                                onclick="changeQuantity(
+                                    ${index},
+                                    -1
+                                )"
+                            >
+                                −
+                            </button>
+
+
+                            <span>
+                                ${item.quantity}
+                            </span>
+
+
+                            <button
+                                onclick="changeQuantity(
+                                    ${index},
+                                    1
+                                )"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            class="remove"
+                            onclick="removeItem(
+                                ${index}
+                            )"
+                        >
+                            Remove
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    // CART COUNT
+
+    if (cartCount) {
+
+        cartCount.textContent =
+            itemCount;
+
+    }
+
+
+    // CART TOTAL
+
+    if (cartTotal) {
+
+        cartTotal.textContent =
+            "GH₵ " +
+            total.toFixed(2);
+
+    }
 
 }
 
 
+// ==========================================
 // CHANGE QUANTITY
+// ==========================================
 
-function changeQuantity(index, amount) {
+function changeQuantity(
+    index,
+    amount
+) {
 
-    cart[index].quantity += amount;
+    cart[index].quantity +=
+        amount;
 
 
-    if (cart[index].quantity <= 0) {
+    // Remove if quantity becomes zero
+
+    if (
+        cart[index].quantity <= 0
+    ) {
 
         cart.splice(index, 1);
 
@@ -152,11 +280,17 @@ function changeQuantity(index, amount) {
 }
 
 
-// REMOVE ITEM
+// ==========================================
+// REMOVE PRODUCT
+// ==========================================
 
 function removeItem(index) {
 
-    cart.splice(index, 1);
+    cart.splice(
+        index,
+        1
+    );
+
 
     saveCart();
 
@@ -165,95 +299,149 @@ function removeItem(index) {
 }
 
 
+// ==========================================
 // OPEN CART
+// ==========================================
 
 function openCart() {
 
-    document
-        .getElementById("cart")
-        .classList.add("open");
+    const cartBox =
+        document.getElementById(
+            "cart"
+        );
+
+
+    if (cartBox) {
+
+        cartBox.classList.add(
+            "open"
+        );
+
+    }
 
 }
 
 
+// ==========================================
 // CLOSE CART
+// ==========================================
 
 function closeCart() {
 
-    document
-        .getElementById("cart")
-        .classList.remove("open");
+    const cartBox =
+        document.getElementById(
+            "cart"
+        );
+
+
+    if (cartBox) {
+
+        cartBox.classList.remove(
+            "open"
+        );
+
+    }
 
 }
 
 
-// SEARCH
+// ==========================================
+// SEARCH PRODUCTS
+// ==========================================
 
 function searchProducts() {
 
+    const searchInput =
+        document.getElementById(
+            "search"
+        );
+
+
+    if (!searchInput) {
+        return;
+    }
+
+
     const search =
-        document
-        .getElementById("search")
-        .value
+        searchInput.value
         .toLowerCase();
 
 
     const products =
-        document.querySelectorAll(".product");
+        document.querySelectorAll(
+            ".product"
+        );
 
 
-    products.forEach(product => {
+    products.forEach(
+        product => {
 
-        const name =
-            product
-            .dataset
-            .name
-            .toLowerCase();
+            const name =
+                product.dataset.name
+                .toLowerCase();
 
 
-        if (name.includes(search)) {
+            if (
+                name.includes(search)
+            ) {
 
-            product.style.display = "";
+                product.style.display =
+                    "";
 
-        } else {
+            } else {
 
-            product.style.display = "none";
+                product.style.display =
+                    "none";
+
+            }
 
         }
-
-    });
+    );
 
 }
 
 
+// ==========================================
 // CATEGORY FILTER
+// ==========================================
 
-function filterProducts(category) {
+function filterProducts(
+    category
+) {
 
     const products =
-        document.querySelectorAll(".product");
+        document.querySelectorAll(
+            ".product"
+        );
 
 
-    products.forEach(product => {
+    products.forEach(
+        product => {
 
-        if (
-            category === "all" ||
-            product.dataset.category === category
-        ) {
+            if (
+                category === "all" ||
+                product.dataset.category ===
+                category
+            ) {
 
-            product.style.display = "";
+                product.style.display =
+                    "";
 
-        } else {
+            } else {
 
-            product.style.display = "none";
+                product.style.display =
+                    "none";
+
+            }
 
         }
-
-    });
+    );
 
 }
 
 
-// START CART
+// ==========================================
+// START WEBSITE
+// ==========================================
 
 updateCart();
