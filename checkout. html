@@ -371,13 +371,101 @@ document
             "customer-location"
         ).value;
 
+document
+.getElementById("checkout-form")
+.addEventListener("submit", function(event) {
+    
+document
+.getElementById("checkout-form")
+.addEventListener("submit", function(event) {
 
-    alert(
-        "Thank you " +
-        name +
-        "! Your order has been received."
+    event.preventDefault();
+
+    const name =
+        document.getElementById("customer-name").value;
+
+    const phone =
+        document.getElementById("customer-phone").value;
+
+    const location =
+        document.getElementById("customer-location").value;
+
+    const message =
+        document.getElementById("customer-message").value;
+
+
+    let orderText =
+        "Hello Ayisha Cosmetics!%0A%0A";
+
+    orderText +=
+        "*NEW ORDER*%0A%0A";
+
+    orderText +=
+        "Customer: " + name + "%0A";
+
+    orderText +=
+        "Phone: " + phone + "%0A";
+
+    orderText +=
+        "Location: " + location + "%0A%0A";
+
+    orderText +=
+        "*ORDER DETAILS*%0A";
+
+
+    cart.forEach(item => {
+
+        orderText +=
+            item.name +
+            " x" +
+            item.quantity +
+            " - GH₵ " +
+            (item.price * item.quantity) +
+            "%0A";
+
+    });
+
+
+    orderText +=
+        "%0A*TOTAL: GH₵ " +
+        total.toFixed(2) +
+        "*%0A";
+
+
+    if (message) {
+
+        orderText +=
+            "%0AMessage: " + message;
+
+    }
+
+
+    // CHANGE THIS NUMBER
+    // Replace 233000000000 with your WhatsApp number
+
+    const whatsappNumber =
+        "0278596913";
+
+
+    const whatsappURL =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        orderText;
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
     );
 
+
+    localStorage.removeItem(
+        "ayishaCart"
+    );
+
+});
+ 
 
     localStorage.removeItem(
         "ayishaCart"
