@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,153 +12,547 @@
 
 <body>
 
-    <!-- Navigation -->
-    <header>
-        <div class="logo">Ayisha <span>Cosmetics</span></div>
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            AYISHA <span>COSMETICS</span>
+        </div>
 
         <nav>
             <a href="#home">Home</a>
-            <a href="#products">Products</a>
+            <a href="#products">Shop</a>
+            <a href="#categories">Categories</a>
             <a href="#about">About</a>
-            <a href="#contact">Contact</a>
         </nav>
+
+        <button class="cart-button" onclick="openCart()">
+            🛒 Cart
+            <span id="cart-count">0</span>
+        </button>
+
     </header>
 
 
-    <!-- Hero -->
+    <!-- HERO -->
+
     <section id="home" class="hero">
 
-        <div>
-            <h1>Beauty Starts Here ✨</h1>
+        <div class="hero-content">
 
-            <p>
-                Discover quality cosmetics, fragrances and beauty
-                essentials at affordable prices.
+            <p class="small-title">
+                WELCOME TO AYISHA COSMETICS
             </p>
 
-            <a href="#products" class="btn">
+            <h1>
+                Beauty That Makes
+                <span>You Shine.</span>
+            </h1>
+
+            <p>
+                Discover cosmetics, fragrances, hair products,
+                body care and fashion essentials.
+            </p>
+
+            <a href="#products" class="shop-btn">
                 Shop Now
             </a>
+
         </div>
 
     </section>
 
 
-    <!-- Products -->
-    <section id="products">
+    <!-- CATEGORIES -->
 
-        <h2>Our Products</h2>
+    <section id="categories" class="categories-section">
 
-        <p class="subtitle">
-            Explore our beauty collection
+        <p class="small-title">
+            SHOP BY CATEGORY
         </p>
 
-        <div class="products">
+        <h2>
+            What Are You Looking For?
+        </h2>
 
-            <!-- Product 1 -->
-            <div class="product">
+        <div class="categories">
 
-                <div class="product-img">💄</div>
+            <button onclick="filterProducts('all')">
+                ✨ All
+            </button>
 
-                <h3>Lip Gloss</h3>
+            <button onclick="filterProducts('makeup')">
+                💄 Makeup
+            </button>
 
-                <p>Beautiful and shiny lip gloss.</p>
+            <button onclick="filterProducts('fragrance')">
+                🌸 Fragrance
+            </button>
 
-                <h4>GH₵ 35</h4>
+            <button onclick="filterProducts('hair')">
+                💇 Hair Care
+            </button>
 
-                <button onclick="order('Lip Gloss')">
-                    Order Now
-                </button>
+            <button onclick="filterProducts('body')">
+                🧴 Body Care
+            </button>
 
-            </div>
+            <button onclick="filterProducts('fashion')">
+                👡 Fashion
+            </button>
 
+        </div>
 
-            <!-- Product 2 -->
-            <div class="product">
-
-                <div class="product-img">🌸</div>
-
-                <h3>Body Spray</h3>
-
-                <p>Fresh fragrance for everyday use.</p>
-
-                <h4>GH₵ 60</h4>
-
-                <button onclick="order('Body Spray')">
-                    Order Now
-                </button>
-
-            </div>
+    </section>
 
 
-            <!-- Product 3 -->
-            <div class="product">
+    <!-- PRODUCTS -->
 
-                <div class="product-img">✨</div>
+    <section id="products" class="products-section">
 
-                <h3>Perfume</h3>
+        <div class="section-heading">
 
-                <p>Elegant and beautiful fragrance.</p>
+            <div>
 
-                <h4>GH₵ 100</h4>
+                <p class="small-title">
+                    OUR COLLECTION
+                </p>
 
-                <button onclick="order('Perfume')">
-                    Order Now
-                </button>
+                <h2>
+                    Featured Products
+                </h2>
 
             </div>
 
 
-            <!-- Product 4 -->
-            <div class="product">
+            <!-- SEARCH -->
 
-                <div class="product-img">🧴</div>
+            <div class="search-box">
 
-                <h3>Hair Pomade</h3>
+                <input
+                    type="text"
+                    id="search"
+                    placeholder="Search products..."
+                    onkeyup="searchProducts()"
+                >
 
-                <p>Perfect for your hair-care routine.</p>
+                🔍
 
-                <h4>GH₵ 45</h4>
+            </div>
 
-                <button onclick="order('Hair Pomade')">
-                    Order Now
-                </button>
+        </div>
+
+
+        <div class="products-grid">
+
+
+            <!-- PRODUCT 1 -->
+
+            <div
+                class="product"
+                data-category="makeup"
+                data-name="Luxury Lip Gloss"
+            >
+
+                <div class="product-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80"
+                        alt="Luxury Lip Gloss"
+                    >
+
+                    <span class="badge">
+                        BEST SELLER
+                    </span>
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <p class="category">
+                        MAKEUP
+                    </p>
+
+                    <h3>
+                        Luxury Lip Gloss
+                    </h3>
+
+                    <p class="description">
+                        Beautiful glossy finish for your lips.
+                    </p>
+
+                    <div class="rating">
+                        ★★★★★
+                    </div>
+
+                    <strong>
+                        GH₵ 35
+                    </strong>
+
+
+                    <div class="product-buttons">
+
+                        <a
+                            href="product.html?product=lip-gloss"
+                            class="details-btn"
+                        >
+                            View Details
+                        </a>
+
+                        <button
+                            onclick="addToCart(
+                            'Luxury Lip Gloss',
+                            35,
+                            'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80'
+                            )"
+                        >
+                            + Cart
+                        </button>
+
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <!-- Product 5 -->
-            <div class="product">
+            <!-- PRODUCT 2 -->
 
-                <div class="product-img">👡</div>
+            <div
+                class="product"
+                data-category="fragrance"
+                data-name="Elegant Perfume"
+            >
 
-                <h3>Ladies Slippers</h3>
+                <div class="product-image">
 
-                <p>Stylish and comfortable slippers.</p>
+                    <img
+                        src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80"
+                        alt="Elegant Perfume"
+                    >
 
-                <h4>GH₵ 80</h4>
+                    <span class="badge">
+                        POPULAR
+                    </span>
 
-                <button onclick="order('Ladies Slippers')">
-                    Order Now
-                </button>
+                </div>
+
+
+                <div class="product-info">
+
+                    <p class="category">
+                        FRAGRANCE
+                    </p>
+
+                    <h3>
+                        Elegant Perfume
+                    </h3>
+
+                    <p class="description">
+                        A beautiful fragrance for special occasions.
+                    </p>
+
+                    <div class="rating">
+                        ★★★★★
+                    </div>
+
+                    <strong>
+                        GH₵ 100
+                    </strong>
+
+
+                    <div class="product-buttons">
+
+                        <a
+                            href="product.html?product=perfume"
+                            class="details-btn"
+                        >
+                            View Details
+                        </a>
+
+                        <button
+                            onclick="addToCart(
+                            'Elegant Perfume',
+                            100,
+                            'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80'
+                            )"
+                        >
+                            + Cart
+                        </button>
+
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <!-- Product 6 -->
-            <div class="product">
+            <!-- PRODUCT 3 -->
 
-                <div class="product-img">🧴</div>
+            <div
+                class="product"
+                data-category="body"
+                data-name="Luxury Body Lotion"
+            >
 
-                <h3>Body Lotion</h3>
+                <div class="product-image">
 
-                <p>Keep your skin feeling soft and fresh.</p>
+                    <img
+                        src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80"
+                        alt="Body Lotion"
+                    >
 
-                <h4>GH₵ 70</h4>
+                </div>
 
-                <button onclick="order('Body Lotion')">
-                    Order Now
-                </button>
+
+                <div class="product-info">
+
+                    <p class="category">
+                        BODY CARE
+                    </p>
+
+                    <h3>
+                        Luxury Body Lotion
+                    </h3>
+
+                    <p class="description">
+                        A nourishing lotion for your daily routine.
+                    </p>
+
+                    <div class="rating">
+                        ★★★★☆
+                    </div>
+
+                    <strong>
+                        GH₵ 70
+                    </strong>
+
+
+                    <div class="product-buttons">
+
+                        <a
+                            href="product.html?product=body-lotion"
+                            class="details-btn"
+                        >
+                            View Details
+                        </a>
+
+                        <button
+                            onclick="addToCart(
+                            'Luxury Body Lotion',
+                            70,
+                            'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80'
+                            )"
+                        >
+                            + Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 4 -->
+
+            <div
+                class="product"
+                data-category="hair"
+                data-name="Hair Care Oil"
+            >
+
+                <div class="product-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80"
+                        alt="Hair Care Oil"
+                    >
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <p class="category">
+                        HAIR CARE
+                    </p>
+
+                    <h3>
+                        Hair Care Oil
+                    </h3>
+
+                    <p class="description">
+                        A simple addition to your everyday hair routine.
+                    </p>
+
+                    <div class="rating">
+                        ★★★★★
+                    </div>
+
+                    <strong>
+                        GH₵ 45
+                    </strong>
+
+
+                    <div class="product-buttons">
+
+                        <a
+                            href="product.html?product=hair-oil"
+                            class="details-btn"
+                        >
+                            View Details
+                        </a>
+
+                        <button
+                            onclick="addToCart(
+                            'Hair Care Oil',
+                            45,
+                            'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80'
+                            )"
+                        >
+                            + Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 5 -->
+
+            <div
+                class="product"
+                data-category="fragrance"
+                data-name="Luxury Body Spray"
+            >
+
+                <div class="product-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80"
+                        alt="Body Spray"
+                    >
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <p class="category">
+                        FRAGRANCE
+                    </p>
+
+                    <h3>
+                        Luxury Body Spray
+                    </h3>
+
+                    <p class="description">
+                        Fresh and pleasant fragrance for everyday use.
+                    </p>
+
+                    <div class="rating">
+                        ★★★★★
+                    </div>
+
+                    <strong>
+                        GH₵ 60
+                    </strong>
+
+
+                    <div class="product-buttons">
+
+                        <a
+                            href="product.html?product=body-spray"
+                            class="details-btn"
+                        >
+                            View Details
+                        </a>
+
+                        <button
+                            onclick="addToCart(
+                            'Luxury Body Spray',
+                            60,
+                            'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80'
+                            )"
+                        >
+                            + Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 6 -->
+
+            <div
+                class="product"
+                data-category="fashion"
+                data-name="Elegant Ladies Slippers"
+            >
+
+                <div class="product-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80"
+                        alt="Ladies Slippers"
+                    >
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <p class="category">
+                        FASHION
+                    </p>
+
+                    <h3>
+                        Elegant Ladies Slippers
+                    </h3>
+
+                    <p class="description">
+                        Stylish and comfortable slippers.
+                    </p>
+
+                    <div class="rating">
+                        ★★★★☆
+                    </div>
+
+                    <strong>
+                        GH₵ 80
+                    </strong>
+
+
+                    <div class="product-buttons">
+
+                        <a
+                            href="product.html?product=slippers"
+                            class="details-btn"
+                        >
+                            View Details
+                        </a>
+
+                        <button
+                            onclick="addToCart(
+                            'Elegant Ladies Slippers',
+                            80,
+                            'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80'
+                            )"
+                        >
+                            + Cart
+                        </button>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -166,58 +561,92 @@
     </section>
 
 
-    <!-- About -->
+    <!-- ABOUT -->
+
     <section id="about" class="about">
 
-        <h2>About Us</h2>
+        <p class="small-title">
+            ABOUT AYISHA
+        </p>
+
+        <h2>
+            Beauty • Style • Confidence
+        </h2>
 
         <p>
-            Ayisha Cosmetics is a beauty and lifestyle store offering
-            cosmetics, fragrances, hair products, slippers and other
-            beauty essentials. Our goal is to provide quality products
-            at affordable prices.
+            Ayisha Cosmetics brings you cosmetics,
+            fragrances, hair products, body-care essentials
+            and fashion items at affordable prices.
         </p>
 
     </section>
 
 
-    <!-- Contact -->
-    <section id="contact">
+    <!-- FOOTER -->
 
-        <h2>Contact Us</h2>
+    <footer>
+
+        <h3>
+            AYISHA COSMETICS
+        </h3>
 
         <p>
-            Want to place an order? Contact us today!
+            Beauty • Style • Confidence
         </p>
 
-        <div class="contact">
+        <p>
+            © 2026 Ayisha Cosmetics
+        </p>
 
-            <a href="https://wa.me/233000000000">
-                💬 WhatsApp
-            </a>
+    </footer>
 
-            <a href="mailto:ayishacosmetics@gmail.com">
-                📧 Email
-            </a>
+
+    <!-- SHOPPING CART -->
+
+    <div id="cart" class="cart">
+
+        <div class="cart-header">
+
+            <h2>
+                Your Cart
+            </h2>
+
+            <button onclick="closeCart()">
+                ✕
+            </button>
 
         </div>
 
-    </section>
+
+        <div id="cart-items">
+        </div>
 
 
-    <!-- Footer -->
-    <footer>
+        <div class="cart-total">
 
-        <h3>Ayisha Cosmetics</h3>
+            <span>
+                Total:
+            </span>
 
-        <p>Beauty • Style • Confidence</p>
+            <strong id="cart-total">
+                GH₵ 0
+            </strong>
 
-        <p>© 2026 Ayisha Cosmetics</p>
+        </div>
 
-    </footer>
+
+        <a
+            href="checkout.html"
+            class="checkout-btn"
+        >
+            Proceed to Checkout
+        </a>
+
+    </div>
 
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
